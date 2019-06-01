@@ -47,7 +47,6 @@ start_date = pd.Timestamp('2019-04-23 00:00')
 end_date = pd.Timestamp('2019-04-30 00:00')
 mask_lastweek = (df['bid_timestamp_local'] > start_date) & (df['bid_timestamp_local'] <= end_date)
 
-
 start_date = pd.Timestamp('2019-04-01 00:00')
 end_date = pd.Timestamp('2019-04-23 00:00')
 mask_threewks = (df['bid_timestamp_local'] > start_date) & (df['bid_timestamp_local'] <= end_date)
@@ -57,12 +56,9 @@ df = df.drop(['bid_timestamp_local'], axis=1)
 y = df.clicks.values
 X = df.drop(['clicks'], axis=1)
 loo = ce.LeaveOneOutEncoder()
-print('Starting LOO encoding')
 X = loo.fit_transform(X,y)
-print('Done encoding \n Starting scaling')
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
-print('Done scaling')
 
 
 X_threeweek = X[mask_threewks]
@@ -156,7 +152,6 @@ X_train, X_test, y_train, y_test = train_test_split(X_threeweek, y_threeweek, te
 model = SGDClassifier(loss='log', penalty='elasticnet', alpha=0.001,n_jobs=-1)
 
 sm = RandomOverSampler()
-print('Starting to train...')
 X_train_res, y_train_res = sm.fit_sample(X_train, y_train)
 model.fit(X_train_res, y_train_res)
 #%%

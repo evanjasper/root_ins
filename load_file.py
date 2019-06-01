@@ -127,7 +127,7 @@ def load_data(data_dir=r'C:\PythonBC\RootData', fname='2019-04-27.csv', Verbose=
 		  'installs']
 	
 	#we never want these columns, drop them from <mycols>
-	unwanted = ['auction_id', 'platform_os', 'day', 'day_of_week', 'month', 'year', 'hour', 'creative_size']
+	unwanted = ['auction_id', 'platform_os', 'day', 'day_of_week', 'month', 'year', 'hour', 'creative_size', 'app_bundle']
 	mycols = [ele for ele in mycols if ele not in unwanted]
 
 	if not all_cols:

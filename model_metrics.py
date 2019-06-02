@@ -35,9 +35,19 @@ from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.model_selection import cross_val_score
 #from yellowbrick.classifier import ClassificationReport
 from sklearn.utils.multiclass import unique_labels
-
+import matplotlib.patheffects as PathEffects
 
 sys.path.append(os.getcwd())
+
+SMALL_SIZE = 22
+MEDIUM_SIZE = 22
+BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=BIGGER_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)
 
 #plt.rcParams['figure.dpi'] = 240
 #%%
@@ -115,12 +125,13 @@ def plot_confusion_matrix(y_true, y_pred, ax, normalize=True, title=None, cmap=p
 
     # Loop over data dimensions and create text annotations.
     fmt = '.2f' if normalize else 'd'
-    thresh = cm.max() / 2.
+    #thresh = cm.max() / 2.
     for i in range(cm.shape[0]):
         for j in range(cm.shape[1]):
-            ax.text(j, i, format(cm[i, j], fmt),
+            txt = ax.text(j, i, format(cm[i, j], fmt),
                     ha="center", va="center",
-                    color="white" if cm[i, j] > thresh else "black")
+                    color="white", fontsize=24)
+            txt.set_path_effects([PathEffects.withStroke(linewidth=3, foreground='black')])
     #fig.tight_layout()
     return
 
